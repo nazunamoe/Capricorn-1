@@ -199,7 +199,29 @@ static struct page *get_arg_page(struct linux_binprm *bprm, unsigned long pos,
 
 	if (write) {
 		unsigned long size = bprm->vma->vm_end - bprm->vma->vm_start;
+<<<<<<< HEAD
 		unsigned long ptr_size, limit;
+
+		/*
+		 * Since the stack will hold pointers to the strings, we
+		 * must account for them as well.
+		 *
+		 * The size calculation is the entire vma while each arg page is
+		 * built, so each time we get here it's calculating how far it
+		 * is currently (rather than each call being just the newly
+		 * added size from the arg page).  As a result, we need to
+		 * always add the entire size of the pointers, so that on the
+		 * last call to get_arg_page() we'll actually have the entire
+		 * correct size.
+		 */
+		ptr_size = (bprm->argc + bprm->envc) * sizeof(void *);
+		if (ptr_size > ULONG_MAX - size)
+			goto fail;
+		size += ptr_size;
+=======
+		unsigned long ptr_size;
+		struct rlimit *rlim;
+>>>>>>> 9bf6b5d... patch-3.18.58-59
 
 		/*
 		 * Since the stack will hold pointers to the strings, we
@@ -235,9 +257,14 @@ static struct page *get_arg_page(struct linux_binprm *bprm, unsigned long pos,
 		 *  - the program will have a reasonable amount of stack left
 		 *    to work from.
 		 */
+<<<<<<< HEAD
 		limit = _STK_LIM / 4 * 3;
 		limit = min(limit, rlimit(RLIMIT_STACK) / 4);
 		if (size > limit)
+=======
+		rlim = current->signal->rlim;
+		if (size > READ_ONCE(rlim[RLIMIT_STACK].rlim_cur) / 4)
+>>>>>>> 9bf6b5d... patch-3.18.58-59
 			goto fail;
 	}
 
