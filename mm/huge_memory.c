@@ -1212,11 +1212,7 @@ out_unlock:
 static inline bool can_follow_write_pmd(pmd_t pmd, unsigned int flags)
 {
 	return pmd_write(pmd) ||
-<<<<<<< HEAD
-	       ((flags & FOLL_FORCE) && (flags & FOLL_COW) && pte_dirty(pmd_pte(pmd)));
-=======
 	       ((flags & FOLL_FORCE) && (flags & FOLL_COW) && pmd_dirty(pmd));
->>>>>>> c9b9e2f... patch-3.18.54-55
 }
 
 struct page *follow_trans_huge_pmd(struct vm_area_struct *vma,

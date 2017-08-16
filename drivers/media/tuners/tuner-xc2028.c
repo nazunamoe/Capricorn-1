@@ -1402,14 +1402,11 @@ static int xc2028_set_config(struct dvb_frontend *fe, void *priv_cfg)
 	 * Copy the config data.
 	 */
 	memcpy(&priv->ctrl, p, sizeof(priv->ctrl));
-<<<<<<< HEAD
 	if (p->fname) {
 		priv->ctrl.fname = kstrdup(p->fname, GFP_KERNEL);
 		if (priv->ctrl.fname == NULL)
 			return -ENOMEM;
 	}
-=======
->>>>>>> c9b9e2f... patch-3.18.54-55
 
 	/*
 	 * If firmware name changed, frees firmware. As free_firmware will
