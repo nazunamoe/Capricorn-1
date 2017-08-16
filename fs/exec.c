@@ -200,7 +200,6 @@ static struct page *get_arg_page(struct linux_binprm *bprm, unsigned long pos,
 	if (write) {
 		unsigned long size = bprm->vma->vm_end - bprm->vma->vm_start;
 		unsigned long ptr_size, limit;
-<<<<<<< HEAD
 
 		/*
 		 * Since the stack will hold pointers to the strings, we
@@ -218,8 +217,6 @@ static struct page *get_arg_page(struct linux_binprm *bprm, unsigned long pos,
 		if (ptr_size > ULONG_MAX - size)
 			goto fail;
 		size += ptr_size;
-=======
->>>>>>> 4d1fd1d... patch-3.18.61-62
 
 		/*
 		 * Since the stack will hold pointers to the strings, we
@@ -258,11 +255,8 @@ static struct page *get_arg_page(struct linux_binprm *bprm, unsigned long pos,
 		limit = _STK_LIM / 4 * 3;
 		limit = min(limit, rlimit(RLIMIT_STACK) / 4);
 		if (size > limit)
-<<<<<<< HEAD
-
-=======
 			goto fail;
->>>>>>> 4d1fd1d... patch-3.18.61-62
+
 	}
 
 	return page;
