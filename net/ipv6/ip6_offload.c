@@ -121,15 +121,10 @@ static struct sk_buff *ipv6_gso_segment(struct sk_buff *skb,
 
 		if (udpfrag) {
 			int err = ip6_find_1stfragopt(skb, &prevhdr);
-<<<<<<< HEAD
 			if (err < 0) {
 				kfree_skb_list(segs);
 				return ERR_PTR(err);
 			}
-=======
-			if (err < 0)
-				return ERR_PTR(err);
->>>>>>> 1f419b9... patch-3.18.55-56
 			fptr = (struct frag_hdr *)((u8 *)ipv6h + err);
 			fptr->frag_off = htons(offset);
 			if (skb->next != NULL)
