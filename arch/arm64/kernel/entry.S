@@ -30,11 +30,7 @@
 #include <asm/memory.h>
 #include <asm/ptrace.h>
 #include <asm/thread_info.h>
-<<<<<<< HEAD
 #include <asm/uaccess.h>
-=======
-#include <asm/asm-uaccess.h>
->>>>>>> 7d7d6a0... patch-3.18.56-57
 #include <asm/unistd.h>
 
 /*
